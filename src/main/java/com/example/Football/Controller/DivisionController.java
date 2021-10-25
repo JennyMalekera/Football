@@ -57,18 +57,18 @@ public class DivisionController {
     //update
 
     @PutMapping("/edit/{id}")
-    public ResponseEntity<String> updateDivision(@RequestBody DivisionModel division)throws Exception {
-        boolean existingDivision = divisionRepository.DivisionExists(division.getName());
+    public ResponseEntity<String> updateDivision(@RequestBody DivisionModel division ,@PathVariable int id)throws Exception {
+        boolean existingDivision = divisionRepository.DivisionExists(id);
         if (!existingDivision) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Division does not exist!");
         }
+        DivisionModel divisionModel = divisionRepository.findById(id).get();
+        divisionModel.setName(division.getName());
+        divisionModel.setStatus('T');
 
-        String name = division.getName();
+        divisionRepository.save(divisionModel);
 
-        division.setStatus('T');
-        this.divisionRepository.save(division);
-
-        return ResponseEntity.ok(name + " Successfully Updated!");
+        return ResponseEntity.ok(division.getName() + " Successfully Updated!");
     }
 
 

@@ -7,8 +7,8 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "DIVISION")
-@SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE id=?")
-@Where(clause = "STATUS = 'T'")
+//@SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE id=?")
+//@Where(clause = "STATUS = 'T'")
 
 public class DivisionModel {
 

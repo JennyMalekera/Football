@@ -62,21 +62,25 @@ public class TeamController {
 
 
   // update
-    @PutMapping ("/edit")
-    public ResponseEntity<String> updatePTeam(@RequestBody TeamModel team)throws Exception {
-        boolean existingTeam = teamRepository.TeamExists(team.getTname());
+    @PutMapping ("/edit/{id}")
+
+    public ResponseEntity<String> updateTeam(@RequestBody TeamModel team ,@PathVariable int id)throws Exception {
+        boolean existingTeam = teamRepository.TeamExists(id);
         if (!existingTeam) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team does not exist!");
         }
+        TeamModel teamModel = teamRepository.findById(id).get();
+        teamModel.setTname(team.getTname());
+        teamModel.setStatus('T');
+        teamModel.setProvinceId(team.getProvinceId());
+        teamModel.setDivisionId(team.getDivisionId());
+        //String name = team.getTname();
 
-        String name = team.getTname();
+        //team.setStatus('T');
+        teamRepository.save(teamModel);
 
-        team.setStatus('T');
-        this.teamRepository.save(team);
-
-        return ResponseEntity.ok(name + " Successfully Updated!");
+        return ResponseEntity.ok(team.getTname() + " Successfully Updated!");
     }
-
 
 
 

@@ -59,20 +59,25 @@ public class PlayerController {
 
 
     // update
-    @PutMapping ("/edit")
-    public ResponseEntity<String> updatePlayer(@RequestBody PlayerModel player)throws Exception {
-        boolean existingPlayer = playerRepository.PlayerExists(player.getFirstname());
+    @PutMapping ("/edit/{id}")
+    public ResponseEntity<String> updatePlayer(@RequestBody PlayerModel player ,@PathVariable int id)throws Exception {
+        boolean existingPlayer = playerRepository.PlayerExists(id);
         if (!existingPlayer) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player does not exist!");
         }
+        PlayerModel playerModel = playerRepository.findById(id).get();
+        playerModel.setFirstname(player.getFirstname());
+        playerModel.setLastname(player.getLastname());
+        playerModel.setAge(player.getAge());
+        playerModel.setEmail(player.getEmail());
+        playerModel.setStatus('T');
+        playerModel.setTeamId(player.getTeamId());
 
-        String name = player.getFirstname();
+        playerRepository.save(playerModel);
 
-        player.setStatus('T');
-        this.playerRepository.save(player);
-
-        return ResponseEntity.ok(name + " Successfully Updated!");
+        return ResponseEntity.ok(player.getFirstname() + " Successfully Updated!");
     }
+
 
 
 

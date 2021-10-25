@@ -19,6 +19,8 @@ public interface PlayerRepository extends JpaRepository<PlayerModel, Integer> {
     @Query("select case when (count (p) > 0) then true else false end from PlayerModel p where p.id = ?1 and p.status = 'T'")
     boolean PlayerExists(int id);
 
+//    @Query("select case when (count (p) > 0) then true else false end from PlayerModel p where t.id = ?1 ")
+//    boolean PlayerExist(int id);
 
     @Query("select case when (count (p) > 0) then true else false end from PlayerModel p where p.firstname = ?1 ")
     boolean PlayerExists(String firstname);

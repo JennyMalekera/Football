@@ -14,6 +14,8 @@ public interface DivisionRepository extends JpaRepository<DivisionModel, Integer
   @Query("select case when (count (d) > 0) then true else false end from DivisionModel d where d.id = ?1 and d.status = 'T'")
   boolean DivisionExists(int id);
 
+//  @Query("select case when (count (d) > 0) then true else false end from DivisionModel d where d.id = ?1 ")
+//  boolean DivisionExist(int id);
 
   @Query("select case when (count (d) > 0) then true else false end from DivisionModel d where d.name = ?1 ")
   boolean DivisionExists(String name);

@@ -2,6 +2,7 @@ package com.example.Football.Model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PLAYER")
@@ -12,21 +13,26 @@ public class PlayerModel {
     @Column(name = "PLAYERID")
     private int id;
 
-
+    @NotNull(message = "Firstname  name is required")
     @Column(name = "FIRSTNAME")
     private String firstname;
+
 
     @Column(name = "LASTNAME")
     private String lastname;
 
+
     @Column(name = "AGE")
     private int age;
+
 
     @Column(name = "EMAIL")
     private String email;
 
+
     @Column(name = "STATUS")
     private char status;
+
 
     @Column(name = "TEAMID")
     private int teamId;

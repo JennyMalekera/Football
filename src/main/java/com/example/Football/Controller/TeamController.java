@@ -74,9 +74,9 @@ public class TeamController {
         teamModel.setStatus('T');
         teamModel.setProvinceId(team.getProvinceId());
         teamModel.setDivisionId(team.getDivisionId());
-        //String name = team.getTname();
 
-        //team.setStatus('T');
+
+
         teamRepository.save(teamModel);
 
         return ResponseEntity.ok(team.getTname() + " Successfully Updated!");

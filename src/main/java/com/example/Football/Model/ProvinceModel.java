@@ -1,39 +1,41 @@
 package com.example.Football.Model;
 
+
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
-@Table(name = "DIVISION")
-//@SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE id=?")
-//@Where(clause = "STATUS = 'T'")
+@Table(name = "PROVINCE")
 
-public class DivisionModel {
 
+public class ProvinceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DIVISIONID", insertable = false, nullable = false,unique = true,updatable = false)
+    //@Column(name = "ProvinceID", insertable = false, nullable = false,unique = true,updatable = false)
+    @Column(name = "PROVINCEID", insertable = false)
     private int id;
 
-    @NotNull(message = "Name is required")
-    @Column(name = "NAME")
-    private String name;
 
+    @NotNull(message = "Province name is required")
+    @Column(name = "PNAME")
+    private String pname;
 
+   // @NotNull(message = "Status  is required")
     @Column(name = "STATUS")
     private char status;
 
-    public DivisionModel(int id, String name,  char status) {
+    public ProvinceModel(int id, String pname, char status) {
         this.id = id;
-        this.name = name;
+        this.pname = pname;
         this.status = status;
     }
 
-    public DivisionModel() {
+    public ProvinceModel() {
     }
 
     public int getId() {
@@ -44,21 +46,19 @@ public class DivisionModel {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPname() {
+        return pname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPname(String name) {
+        this.pname = name;
     }
-
-
     public char getStatus() {
         return status;
     }
 
     public void setStatus(char status) {
-        this.status = status;
+        this.status = 'T';
     }
 }
 

@@ -4,8 +4,10 @@ package com.example.Football.Repository;
 
 import com.example.Football.Model.TeamModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface TeamRepository extends JpaRepository<TeamModel, Integer> {
@@ -14,9 +16,9 @@ public interface TeamRepository extends JpaRepository<TeamModel, Integer> {
    @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.id = ?1 and t.status = 'T'")
    boolean TeamExists(int id);
 
+
    @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.id = ?1 ")
    boolean TeamExist(int id);
-
 
 
     @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.tname = ?1 ")

@@ -5,11 +5,12 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "TEAM")
- //@SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE id=?")
- //@Where(clause = "STATUS = 'T'")
+  @SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE TEAMID=?")
+  @Where(clause = "STATUS = 'T'")
 
 public class TeamModel {
 
@@ -18,18 +19,23 @@ public class TeamModel {
     @Column(name = "TEAMID", insertable = false, nullable = false,unique = true,updatable = false)
     private int id;
 
-
+    @NotNull(message = "Team name is required")
     @Column(name = "TNAME")
     private String tname;
 
+    @NotNull(message = "Team status is required")
     @Column(name = "STATUS")
     private char status;
 
+    @NotNull(message = "ProvinceId is required")
     @Column(name = "PROVINCEID")
     private int ProvinceId;
 
+    @NotNull(message = "DivisionId is required")
     @Column(name = "DIVISIONID")
     private int DivisionId;
+
+
 
     public TeamModel(int id, String tname, char status, int provinceId, int divisionId) {
         this.id = id;
@@ -63,7 +69,7 @@ public class TeamModel {
     }
 
     public void setStatus(char status) {
-        this.status = status;
+        this.status = 'T';
     }
 
     public int getProvinceId() {

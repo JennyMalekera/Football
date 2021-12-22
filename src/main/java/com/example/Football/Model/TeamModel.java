@@ -5,6 +5,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -23,15 +24,15 @@ public class TeamModel {
     @Column(name = "TNAME")
     private String tname;
 
-    @NotNull(message = "Team status is required")
+
     @Column(name = "STATUS")
     private char status;
 
-    @NotNull(message = "ProvinceId is required")
+
     @Column(name = "PROVINCEID")
     private int ProvinceId;
 
-    @NotNull(message = "DivisionId is required")
+
     @Column(name = "DIVISIONID")
     private int DivisionId;
 

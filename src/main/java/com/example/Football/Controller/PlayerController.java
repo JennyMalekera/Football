@@ -87,7 +87,7 @@ public class PlayerController {
     public ResponseEntity<String> deletePlayer(@PathVariable int id)throws Exception{
         Optional<PlayerModel> existingPlayer = playerRepository.findById(id);
         if(existingPlayer.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team Not Found!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Player Not Found!");
         }
         playerRepository.deleteById(id);
         return ResponseEntity.ok("Successfully Deleted " + existingPlayer.get().getFirstname() + "!");

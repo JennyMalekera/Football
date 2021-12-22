@@ -17,8 +17,8 @@ public interface TeamRepository extends JpaRepository<TeamModel, Integer> {
    boolean TeamExists(int id);
 
 
-   @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.id = ?1 ")
-   boolean TeamExist(int id);
+//   @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.id = ?1 ")
+//   boolean TeamExist(int id);
 
 
     @Query("select case when (count (t) > 0) then true else false end from TeamModel t where t.tname = ?1 ")

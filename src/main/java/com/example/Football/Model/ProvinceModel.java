@@ -11,13 +11,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "PROVINCE")
 
+@SQLDelete(sql = "UPDATE PROVINCE SET STATUS = 'F' WHERE PROVINCEID=?")
+@Where(clause = "STATUS = 'T'")
 
 public class ProvinceModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name = "ProvinceID", insertable = false, nullable = false,unique = true,updatable = false)
-    @Column(name = "PROVINCEID", insertable = false)
+    @Column(name = "PROVINCEID", insertable = false, nullable = false,unique = true,updatable = false)
+    //@Column(name = "PROVINCEID", insertable = false)
     private int id;
 
 
@@ -25,7 +27,7 @@ public class ProvinceModel {
     @Column(name = "PNAME")
     private String pname;
 
-   // @NotNull(message = "Status  is required")
+    @NotNull(message = "Status  is required")
     @Column(name = "STATUS")
     private char status;
 
@@ -50,8 +52,8 @@ public class ProvinceModel {
         return pname;
     }
 
-    public void setPname(String name) {
-        this.pname = name;
+    public void setPname(String pname) {
+        this.pname = pname;
     }
     public char getStatus() {
         return status;

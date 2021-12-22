@@ -1,6 +1,6 @@
 package com.example.Football.Controller;
 
-import com.example.Football.Model.PlayerModel;
+
 import com.example.Football.Model.TeamModel;
 import com.example.Football.Repository.DivisionRepository;
 import com.example.Football.Repository.ProvinceRepository;
@@ -10,12 +10,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/team")
 public class TeamController {
+
+
+    //autowire is to inject object
 
     @Autowired
     public TeamRepository teamRepository;
@@ -25,15 +31,18 @@ public class TeamController {
     DivisionRepository divisionRepository;
 
 
+    //rest api
+    //get all teams
+
     @GetMapping("/all")
     public List<TeamModel> getTeam() {
         return teamRepository.findAll();
     }
 
-
+    //create
     @PostMapping("/create")
 
-    public ResponseEntity<String> createTeam(@RequestBody TeamModel team ) {
+    public ResponseEntity<String> createTeam(@Valid @RequestBody TeamModel team ) {
         try {
             boolean teamExist = teamRepository.TeamExists(team.getTname());
             TeamModel teamOptional = null;
@@ -64,7 +73,7 @@ public class TeamController {
   // update
     @PutMapping ("/edit/{id}")
 
-    public ResponseEntity<String> updateTeam(@RequestBody TeamModel team ,@PathVariable int id)throws Exception {
+    public ResponseEntity<String> updateTeam(@Valid @RequestBody TeamModel team ,@PathVariable int id)throws Exception {
         boolean existingTeam = teamRepository.TeamExists(id);
         if (!existingTeam) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team does not exist!");
@@ -86,7 +95,7 @@ public class TeamController {
 
     //delete
     @DeleteMapping  ("/delete/{id}")
-    public ResponseEntity<String> deleteTeam(@PathVariable int id)throws Exception{
+    public ResponseEntity<String> deleteTeam(@PathVariable @NotBlank @Min(1) int id)throws Exception{
         Optional<TeamModel> existingTeam = teamRepository.findById(id);
         if(existingTeam.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team Not Found!");

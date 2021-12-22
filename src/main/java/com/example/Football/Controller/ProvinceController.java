@@ -10,6 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +32,7 @@ public class ProvinceController {
 
     @PostMapping("/create")
 
-    public ResponseEntity<String> createProvince(@RequestBody ProvinceModel province ) {
+    public ResponseEntity<String> createProvince(@Valid @RequestBody ProvinceModel province ) {
         try {
             boolean provinceExist = provinceRepository.ProvinceExists(province.getPname());
             //boolean provinceExist = false;
@@ -60,11 +63,11 @@ public class ProvinceController {
 
     // update
     @PutMapping ("/edit/{id}")
-    public ResponseEntity<String> updateProvince(@RequestBody ProvinceModel province , @PathVariable int id)throws Exception {
+    public ResponseEntity<String> updateProvince(@Valid @RequestBody ProvinceModel province , @PathVariable int id)throws Exception {
         boolean existingProvince = provinceRepository.ProvinceExists(id);
        // boolean existingProvince = false;
         if (!existingProvince) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Team does not exist!");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Province does not exist!");
         }
         ProvinceModel provinceModel = provinceRepository.findById(id).get();
         provinceModel.setPname(province.getPname());

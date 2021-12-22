@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "DIVISION")
-//@SQLDelete(sql = "UPDATE TEAM SET STATUS = 'F' WHERE id=?")
-//@Where(clause = "STATUS = 'T'")
+  @SQLDelete(sql = "UPDATE DIVISION SET STATUS = 'F' WHERE DIVISIONID=?")
+  @Where(clause = "STATUS = 'T'")
 
 public class DivisionModel {
 
@@ -58,7 +58,7 @@ public class DivisionModel {
     }
 
     public void setStatus(char status) {
-        this.status = status;
+        this.status = 'T';
     }
 }
 
